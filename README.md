@@ -17,28 +17,27 @@ This repository provides two Go-based mail sender tools for Microsoft 365 / Offi
 
 Set these variables before running either tool:
 
-\`\`\`bash
-export AZURE_TENANT_ID="your-tenant-id"
+
+```export AZURE_TENANT_ID="your-tenant-id"
 export AZURE_CLIENT_ID="your-client-id"
 export SENDER_EMAIL="your-sender-email@example.com"
 export SENDER_USERNAME="your-username@example.com"
 export SENDER_PASSWORD="your-password"
-export API_KEY="your-secure-api-key"
-\`\`\`
+export API_KEY="your-secure-api-key"```
 
 For the script, you also need:
 
-\`\`\`bash
+```
 export RECIPIENT_EMAIL="recipient@example.com"
-\`\`\`
+```
 
 ## Run the script
 
 From `/opt/go/O365SendMail`:
 
-\`\`\`bash
+```bash
 go run sendmail.go
-\`\`\`
+```
 
 The script reads credentials from environment variables and sends a single email to `RECIPIENT_EMAIL`.
 
@@ -46,11 +45,11 @@ The script reads credentials from environment variables and sends a single email
 
 From `/opt/go/O365SendMail`:
 
-\`\`\`bash
+```bash
 go build -o sendmail_api sendmail_api.go
 export $(cat .env | xargs)
 ./sendmail_api
-\`\`\`
+```
 
 The API listens on `http://localhost:8080`.
 
@@ -58,27 +57,27 @@ The API listens on `http://localhost:8080`.
 
 ### Health check
 
-\`\`\`bash
+```bash
 curl http://localhost:8080/health
-\`\`\`
+```
 
 ### Send email
 
-\`\`\`bash
+```bash
 curl -X POST http://localhost:8080/send-email \
   -H "Content-Type: application/json" \
   -H "X-API-Key: $API_KEY" \
   -d '{"to":"recipient@example.com","subject":"Hello","body":"Test email"}'
-\`\`\`
+```
 
 Successful response:
 
-\`\`\`json
+```json
 {
   "success": true,
   "message": "Email sent successfully to recipient@example.com"
 }
-\`\`\`
+```
 
 ## Security notes
 
